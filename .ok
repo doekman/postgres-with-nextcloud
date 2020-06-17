@@ -1,0 +1,9 @@
+# Makefile
+make # shows usage
+make nextcloud # create table+views in default database
+export PGDATABASE=doc_db # for when using `make CREATE`
+make CREATE nextcloud # create database, and table+views
+# Data commands
+tool/loaddoc.sh "$1" #pretty slow on big files
+psql -c "TRUNCATE TABLE nextcloud.log RESTART IDENTITY" # Clears database table
+tool/loadlines.sh --db "postgres://postgres@/$PGDATABASE" --truncate-table "$1"
