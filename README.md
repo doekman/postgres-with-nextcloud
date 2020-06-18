@@ -1,7 +1,7 @@
 postgres-with-nextcloud
 =======================
 
-In [Nextcloud][], you can export logs (User Settings > Logs > ... > Download logs). The log file consists of multiple lines, with a JSON-object on each line.
+In [Nextcloud][], you can export logs (User Avatar > Settings > Logs > ... > Download logs). The log file consists of multiple lines, with a JSON-object on each line.
 
 In this repository, you will find SQL to work with those.
 
@@ -21,7 +21,7 @@ will show how you how to use the makefile. The command
 
 will create the table+views (nextcloud). Now load some data:
 
-	tool/loaddoc.sh data/small.log
+	tool/loaddoc.sh NEXTCLOUD.lOG --logfile NOT provided
 
 Now you are ready to query:
 
@@ -30,8 +30,8 @@ Now you are ready to query:
 
 The last command shows all tables and views you can query from. Let's query some:
 
-	select * from nextcloud.log$all where "user" ilike '%some_name%'; -- Filter on user name
-	select * from nextcloud.log$all where "remoteaddr" = '10.20.30.40'; -- Query for client's IP-address
+	select * from nextcloud.log$all where user_name ilike '%some_name%'; -- Filter on user name
+	select * from nextcloud.log$all where remote_addr = '10.20.30.40'; -- Query for client's IP-address
 
 And to quit `psql`, type:
 
